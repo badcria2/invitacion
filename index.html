@@ -106,16 +106,13 @@ input,select{width:100%;min-height:52px;padding:.7rem 1rem;border:3px solid var(
 #lb img{max-height:82vh;border-radius:16px;margin:auto}
 #lb .x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 1rem);right:1rem}
 
-/* Detalles y RSVP */
+/* Detalles */
 .notes{display:grid;gap:.8rem;text-align:left;margin-top:1rem}
 .note{display:flex;gap:.9rem;align-items:flex-start;background:#fff;border:3px solid var(--brown);border-radius:18px;padding:.9rem 1.1rem}
 .note i{font-style:normal;font-size:1.8rem;line-height:1.2}
 form{background:#fff;border:4px solid var(--brown);border-radius:24px;padding:1.5rem 1.25rem;box-shadow:0 6px 0 var(--brown);text-align:left;color:var(--brown)}
-form .btns .btn{flex:1 1 200px}
-.msg{min-height:1.5em;margin-top:1rem;text-align:center;font-weight:800}
 footer{padding:2.5rem 1rem calc(2.5rem + env(safe-area-inset-bottom,0px));text-align:center;font-weight:700}
 footer b{font-family:var(--display);font-weight:400;font-size:1.6rem;display:block;color:var(--yellow);text-shadow:0 2px 0 var(--sky-deep)}
-
 
 /* Animaciones y slider */
 .hero{overflow:hidden}
@@ -174,7 +171,6 @@ header.sky,section.sky,footer.sky{position:relative;overflow:hidden}
 .gate-card.bad{animation:nope .4s}
 @keyframes nope{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
 input[readonly]{background:#f1e8cc}
-small#rNote{display:block;margin-top:.4rem;font-weight:700}
 .mus{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;border:3px solid var(--brown);background:var(--yellow);font-size:1.5rem;cursor:pointer;box-shadow:0 4px 0 var(--brown);display:none}
 .mus.on{animation:spin 4s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -205,6 +201,36 @@ small#rNote{display:block;margin-top:.4rem;font-weight:700}
 .tk{animation:tkp .35s}
 @keyframes tkp{40%{transform:scale(1.25);color:var(--yellow)}}
 @media (min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+/* Cohetes que despegan */
+.rk{position:fixed;bottom:-4rem;z-index:44;pointer-events:none;display:flex;flex-direction:column;align-items:center;
+  animation:launch var(--t,3s) cubic-bezier(.4,0,.9,.6) forwards}
+.rk .ship{display:inline-block;transform:rotate(-45deg);line-height:1}
+.rk .fire{width:8px;height:46px;margin-top:-.2em;border-radius:50%;
+  background:linear-gradient(#FFC72C,#ff8a3d 50%,transparent);filter:blur(1px);animation:flick .12s linear infinite alternate}
+@keyframes launch{to{transform:translate(var(--dx,0),-120vh)}}
+@keyframes flick{from{transform:scaleY(.8);opacity:.8}to{transform:scaleY(1.2);opacity:1}}
+.howto{margin-top:2rem}
+.howto h3{font-size:1.7rem;margin-bottom:.3rem;text-shadow:0 3px 0 var(--sky-deep)}
+.howto .lead{margin-bottom:1rem}
+.vthumb{display:inline-flex;align-items:center;gap:.9rem;padding:.7rem 1.4rem .7rem .8rem;border:3px solid var(--brown);border-radius:999px;background:var(--yellow);color:var(--brown);font:800 1.05rem var(--body);text-align:left;line-height:1.2;cursor:pointer;box-shadow:0 5px 0 var(--brown);transition:transform .12s,box-shadow .12s}
+.vthumb:hover{transform:translateY(2px);box-shadow:0 3px 0 var(--brown)}
+.vthumb .pl{width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;border:3px solid var(--brown);display:grid;place-items:center;font-size:1.3rem;padding-left:4px;animation:pulse 2s ease-in-out infinite}
+.vthumb small{display:block;font-weight:700;font-size:.85rem}
+#vm{position:fixed;inset:0;z-index:65;background:rgba(0,0,0,.88);display:grid;place-items:center;padding:1rem}
+#vm[hidden]{display:none}
+#vm .x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 1rem);right:1rem}
+
+/* Destellos de luz */
+.glint{position:fixed;z-index:45;pointer-events:none;line-height:1;opacity:0;
+  text-shadow:0 0 6px #FFC72C,0 0 14px #fff;
+  animation:glint 1.2s ease-out forwards}
+@keyframes glint{
+  0%{opacity:0;transform:scale(0) rotate(0)}
+  50%{opacity:1;transform:scale(1) rotate(90deg)}
+  100%{opacity:0;transform:scale(0) rotate(180deg)}
+}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -254,7 +280,6 @@ small#rNote{display:block;margin-top:.4rem;font-weight:700}
       <div><b data-u="m">00</b><small>min</small></div>
       <div><b data-u="s">00</b><small>seg</small></div>
     </div>
-    <div class="btns"><a class="btn" href="#rsvp">Confirmar asistencia</a></div>
   </div>
   <a class="scroll" href="#cuando" aria-label="Ir a la fecha">Desliza ↓</a>
 </header>
@@ -302,6 +327,11 @@ small#rNote{display:block;margin-top:.4rem;font-weight:700}
       </div>
       <iframe id="mapFrame" title="Mapa del lugar de la fiesta" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </article>
+    <div class="howto" id="howto">
+      <h3>🚗 Mira cómo llegar</h3>
+      <p class="lead">Toca el botón para ver el video y no perderte en el camino.</p>
+      <button class="vthumb" id="vOpen" type="button" aria-haspopup="dialog"><span class="pl" aria-hidden="true">▶</span><span>Ver video<small>Cómo llegar</small></span></button>
+    </div>
   </div>
 </section>
 
@@ -338,30 +368,6 @@ small#rNote{display:block;margin-top:.4rem;font-weight:700}
     <div class="notes" id="notes"></div>
   </div>
 </section>
-
-<!-- ========== 8. CONFIRMAR ========== -->
-<section class="sky" id="rsvp">
-  <div class="wrap">
-    <h2>¿Vienes a la fiesta?</h2>
-    <p class="lead" id="rsvpLead">Avísanos antes del 25 de octubre.</p>
-    <form id="rsvpForm">
-      <div class="field">
-        <label for="rName">Invitación de</label>
-        <input id="rName" readonly>
-      </div>
-      <div class="field">
-        <label for="rKids">¿Cuántos niños vienen contigo?</label>
-        <select id="rKids"></select>
-        <small id="rNote"></small>
-      </div>
-      <div class="btns">
-        <button class="btn red" type="submit" data-yes="1">¡Sí, voy!</button>
-        <button class="btn ghost" type="submit">No podré ir</button>
-      </div>
-      <p class="msg" id="msg" role="status"></p>
-    </form>
-  </div>
-</section>
 </main>
 
 <footer class="sky">
@@ -381,6 +387,10 @@ small#rNote{display:block;margin-top:.4rem;font-weight:700}
   </div>
 </div>
 <button class="mus" id="mus" aria-label="Música de fondo" aria-pressed="false">🎵</button>
+<div id="vm" role="dialog" aria-modal="true" aria-label="Video de cómo llegar" hidden>
+  <button class="btn x" id="vmClose" type="button" aria-label="Cerrar video">✕ Cerrar</button>
+  <div class="video" id="videoLlegada"></div>
+</div>
 <div id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button class="btn x" id="lbClose" aria-label="Cerrar foto">✕ Cerrar</button>
   <img alt="">
@@ -393,13 +403,13 @@ small#rNote{display:block;margin-top:.4rem;font-weight:700}
 const CONFIG = {
   nombre: "R. Gabriel",
   edad: 3,
-  fotoPortada: "fotos/portada.jpg",                    // Ej: "fotos/portada.jpg" (vacío = emoji)
+  fotoPortada: "fotos/portada.png",                    // Ej: "fotos/portada.jpg" (vacío = emoji)
   fechaISO: "2026-10-31T18:00:00-05:00", // Fecha y hora (Lima = -05:00)
   limiteConfirmar: "25 de octubre",
 
   lugar: {
-    nombre: "Salón Pizza Planet",
-    direccion: "Av. Ejemplo 123, San Isidro, Lima",
+    nombre: "New Kids Playground",
+    direccion: "Av. Los Alisos Lote 10, San Martín de Porres 15304",
     mapsLink: "",                     // Pega aquí tu enlace de Google Maps (opcional)
     lat: -12.0977, lng: -77.0365      // Para el botón de taxi
   },
@@ -407,8 +417,14 @@ const CONFIG = {
   // Video: pon un archivo ("video/mensaje.mp4") o un ID de YouTube ("dQw4w9WgXcQ")
   video: { mp4: "espacios.mp4", youtube: "" },
 
+  // Video referencial de cómo llegar (archivo o ID de YouTube). Vacío = se oculta la sección.
+  videoLlegada: { mp4: "video/como-llegar.mp4", youtube: "" },
+
+  // Cohetes: cada cuántos segundos despega uno
+  cohetesCadaSeg: 6,
+
   // Fotos: agrega rutas, ej: ["fotos/1.jpg","fotos/2.jpg"]. Vacío = cuadros de ejemplo.
-  fotos: [],
+  fotos: ["fotos/foto1.jpg","fotos/foto2.jpg","fotos/foto3.jpg","fotos/foto4.jpg","fotos/foto5.jpg","fotos/foto6.jpg"],
 
   // Personajes. Si pones el archivo personajes/<f>.png se muestra solo; si no, se ve el emoji.
   personajes: [
@@ -446,20 +462,23 @@ const CONFIG = {
     { e:"👽", t:"¡Los alienitos no te reconocen!", p:"Revisa que tu nombre y apellido estén bien escritos e inténtalo de nuevo." }
   ],
 
-  // LISTA DE INVITADOS: 1 adulto + sus niños. "nombres" = formas en que pueden escribirse.
+  // LISTA DE INVITADOS: 1 adulto + sus niños. "nombres" = formas en que pueden escribirse. 
   invitados: [
     { saludo:"Familia Pérez",  nombres:["María Pérez","Familia Pérez"],    ninos:2 },
-    { saludo:"Carlos",         nombres:["Carlos Ramos"],                    ninos:1 },
-    { saludo:"Lucía",          nombres:["Lucía Torres Díaz","Lucía Torres"], ninos:3 }
+    { saludo:"Laura",         nombres:["Laura Hernandez"],                    ninos:1 },
+    { saludo:"Reibin",          nombres:["Reibin"], ninos:3 },
+    { saludo:"Tia nena",          nombres:["Tia nena"], ninos:3 },
+    { saludo:"Claudia Hernandez",          nombres:["Claudia Hernandez"], ninos:3 }
   ],
+
 
   detalles: [
     { icono:"👕", texto:"Ven cómodo. Si quieres, ¡disfrázate de tu juguete favorito!" },
     { icono:"🎂", texto:"Habrá torta, comida y muchos juegos para los niños." },
-    { icono:"🚗", texto:"Si vienes en carro, hay estacionamiento en el local." }
+    { icono:"🚗", texto:"Si vienes en carro, hay estacionamiento a los alrededores local." }
   ],
 
-  whatsapp: "51999999999",            // Tu número con código de país, sin + ni espacios
+  whatsapp: "51991585760",            // Tu número con código de país, sin + ni espacios
   firma: "Con cariño, la familia de Gabriel"
 };
 /* ===================================================== */
@@ -475,7 +494,6 @@ $('age').textContent = `¡${C.edad} años!`;
 const D=new Date(C.fechaISO), tz={timeZone:'America/Lima'}, cap=t=>t[0].toUpperCase()+t.slice(1);
 $('dDay').textContent = D.toLocaleDateString('es-PE',{...tz,day:'numeric'});
 $('dText').innerHTML = `${cap(D.toLocaleDateString('es-PE',{...tz,weekday:'long'}))}<br>de ${D.toLocaleDateString('es-PE',{...tz,month:'long'})}<br>${D.toLocaleTimeString('es-PE',{...tz,hour:'numeric',minute:'2-digit',hour12:true})}`;
-$('rsvpLead').textContent = `Avísanos antes del ${C.limiteConfirmar}.`;
 $('foot').textContent = C.firma;
 $('pName').textContent = L.nombre;
 $('pAddr').textContent = L.direccion;
@@ -488,8 +506,7 @@ $('taxiBtn').href = `https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=$
 $('mapFrame').src = `https://maps.google.com/maps?q=${q}&z=15&output=embed`;
 
 /* Video */
-(function(){
-  const b = $('videoBox'), v = C.video;
+function buildVideo(b, v){
   if (v.mp4){
     b.innerHTML = `<video controls playsinline preload="metadata" src="${v.mp4}"></video>`;
     const vid=b.firstChild;
@@ -497,7 +514,20 @@ $('mapFrame').src = `https://maps.google.com/maps?q=${q}&z=15&output=embed`;
   }
   else if (v.youtube) b.innerHTML = `<iframe src="https://www.youtube.com/embed/${v.youtube}?rel=0" title="Video de invitación" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
   else b.innerHTML = `<div class="ph" style="color:#fff"><span>🎬</span>Aquí irá tu video.<br>Edita <code>CONFIG.video</code></div>`;
-})();
+}
+buildVideo($('videoBox'), C.video);
+if (C.videoLlegada && (C.videoLlegada.mp4 || C.videoLlegada.youtube)){
+  const vm=$('vm'), vb=$('videoLlegada'); let resume=false;
+  const closeV=()=>{ vm.hidden=true; vb.innerHTML=''; if(resume && au) au.play().catch(()=>{}); resume=false; $('vOpen').focus(); };
+  $('vOpen').onclick=()=>{
+    if (au && !au.paused){ au.pause(); resume=true; }
+    buildVideo(vb, C.videoLlegada); vm.hidden=false; $('vmClose').focus();
+    const v=vb.querySelector('video'); if(v) v.play().catch(()=>{});
+  };
+  $('vmClose').onclick=closeV;
+  vm.addEventListener('click',e=>{ if(e.target===vm) closeV(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !vm.hidden) closeV(); });
+} else { $('howto').remove(); $('vm').remove(); }
 
 /* Galería */
 (function(){
@@ -563,9 +593,6 @@ function openGate(i, fresh){
   $('gate').classList.add('out'); document.body.style.overflow = '';
   $('hi').textContent = `¡Hola, ${G.saludo}! Estás invitado a la fiesta de`;
   $('pass').textContent = `🎟️ Invitación para 1 adulto${G.ninos?` + ${G.ninos} niño${G.ninos>1?'s':''}`:''}`;
-  $('rName').value = G.saludo;
-  $('rKids').innerHTML = Array.from({length:G.ninos+1},(_,k)=>`<option value="${k}"${k===G.ninos?' selected':''}>${k}</option>`).join('');
-  $('rNote').textContent = `Tu invitación incluye hasta ${G.ninos} niño${G.ninos===1?'':'s'}.`;
   if (fresh){ confetti(); au && au.play().catch(()=>{}); }
   setTimeout(()=>$('gate').remove(),600);
 }
@@ -616,6 +643,37 @@ if (!RM){
 $('heroPhoto').addEventListener('click',confetti);
 $('heroPhoto').addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); confetti(); } });
 
+/* Destellos de luz aleatorios */
+function glint(){
+  const g=document.createElement('span');
+  g.className='glint'; g.setAttribute('aria-hidden','true');
+  g.textContent=Math.random()<.5?'✦':'✧';
+  g.style.left=Math.random()*96+'vw';
+  g.style.top=Math.random()*94+'vh';
+  g.style.fontSize=(.9+Math.random()*1.5)+'rem';
+  g.style.color=['#FFC72C','#fff','#FFE27A'][Math.floor(Math.random()*3)];
+  document.body.appendChild(g);
+  setTimeout(()=>g.remove(),1300);
+}
+if (!RM) setInterval(()=>{ glint(); if(Math.random()<.4) setTimeout(glint,200); }, 700);
+
+/* Cohetes que despegan cada cierto tiempo */
+function launchRocket(){
+  const r=document.createElement('div');
+  r.className='rk'; r.setAttribute('aria-hidden','true');
+  r.innerHTML='<span class="ship">🚀</span><span class="fire"></span>';
+  r.style.left=(5+Math.random()*88)+'vw';
+  r.style.setProperty('--dx',((Math.random()-.5)*160)+'px');
+  r.style.setProperty('--t',(2.6+Math.random()*1.4)+'s');
+  r.querySelector('.ship').style.fontSize=(1.8+Math.random()*1.4)+'rem';
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),4200);
+}
+if (!RM){
+  const every=(C.cohetesCadaSeg||6)*1000;
+  setInterval(()=>{ launchRocket(); if(Math.random()<.35) setTimeout(launchRocket,500); }, every);
+}
+
 /* Cuenta regresiva (portada) */
 const target = new Date(C.fechaISO).getTime();
 const pad = n => String(n).padStart(2,'0');
@@ -661,19 +719,6 @@ if (!RM && 'IntersectionObserver' in window){
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
   document.querySelectorAll('section .wrap, .slider').forEach(el=>{el.classList.add('rv');io.observe(el)});
 }
-
-/* Confirmar por WhatsApp */
-let yes = false;
-document.querySelectorAll('#rsvpForm button').forEach(b=>b.addEventListener('click',()=>{ yes = !!b.dataset.yes; }));
-$('rsvpForm').addEventListener('submit', e=>{
-  e.preventDefault();
-  const name = $('rName').value.trim(), k = +$('rKids').value;
-  const text = yes
-    ? `¡Hola! Soy ${name}. Confirmo mi asistencia al cumpleaños de ${C.nombre}. Vamos 1 adulto y ${k} niño(s). 🎉`
-    : `¡Hola! Soy ${name}. Lamentablemente no podré asistir al cumpleaños de ${C.nombre}. ¡Que lo disfruten!`;
-  $('msg').textContent = 'Abriendo WhatsApp para enviar tu respuesta…';
-  window.open(`https://wa.me/${C.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-});
 </script>
 </body>
 </html>
