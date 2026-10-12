@@ -14,8 +14,8 @@
 <meta property="og:site_name" content="Cumpleaños de Gabriel">
 <meta property="og:title" content="¡Estás invitado al cumpleaños de Gabriel! 🚀">
 <meta property="og:description" content="¡Al infinito y más allá! Sábado 31 de octubre, 6:00 p. m. Abre tu invitación.">
-<meta property="og:url" content="https://badcria2.github.io/invitacion/">
-<meta property="og:image" content="https://badcria2.github.io/invitacion/fotos/preview.jpg">
+<meta property="og:url" content="https://badcria2.github.io/invitacion//">
+<meta property="og:image" content="https://badcria2.github.io/invitacion//fotos/preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Invitación al cumpleaños de Gabriel: ¡Al infinito y más allá!">
@@ -249,6 +249,18 @@ input[readonly]{background:#f1e8cc}
 .yq img{width:min(220px,60vw);margin:.8rem auto;border:4px solid #742284;border-radius:18px;background:#fff}
 .ynum{font:400 2rem var(--display);color:#742284;letter-spacing:.04em;margin:.4rem 0}
 
+/* Memorama */
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;max-width:420px;margin:1rem auto;perspective:800px}
+.mc{aspect-ratio:1;position:relative;border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:transform .45s}
+.mc.up,.mc.ok{transform:rotateY(180deg)}
+.mf{position:absolute;inset:0;display:grid;place-items:center;border:3px solid var(--brown);border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 4px 0 var(--brown);font-size:2rem;overflow:hidden}
+.mf.back{background:var(--yellow)}
+.mf.front{transform:rotateY(180deg);font-size:2.2rem}
+.mf.front img{width:100%;height:100%;object-fit:contain}
+.mc.ok .mf.front{border-color:#2E8B45;box-shadow:0 4px 0 #2E8B45}
+.memBar{display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap;font-weight:800}
+#memMsg{min-height:1.6em;margin-top:.8rem;font-weight:800;font-size:1.1rem}
+
 /* Destellos de luz */
 .glint{position:fixed;z-index:45;pointer-events:none;line-height:1;opacity:0;
   text-shadow:0 0 6px #FFC72C,0 0 14px #fff;
@@ -400,6 +412,17 @@ input[readonly]{background:#f1e8cc}
   <div class="wrap">
     <h2><span class="gift" aria-hidden="true">🎁</span> Avisos de los juguetes</h2>
     <div class="bubble" id="bubble" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ========== 6C. JUEGO ========== -->
+<section class="sky pre" id="juego">
+  <div class="wrap">
+    <h2>Juega con los amigos</h2>
+    <p class="lead">Encuentra las parejas de personajes mientras llega la fiesta.</p>
+    <div class="mem" id="mem"></div>
+    <div class="memBar"><span>Intentos: <b id="memMoves">0</b></span><button class="btn small" id="memReset" type="button">🔄 Jugar otra vez</button></div>
+    <p id="memMsg" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -845,6 +868,40 @@ if (!RM){
     cp.textContent = ok ? '¡Copiado! ✓' : 'Número seleccionado';
     setTimeout(()=>cp.textContent='Copiar número', 2000);
   };
+})();
+
+/* Memorama de personajes */
+(function(){
+  const board=$('mem'), moves=$('memMoves'), msg=$('memMsg'), PAIRS=6;
+  let first=null, lock=false, n=0, found=0;
+  const mix = a => { a=[...a]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  function build(){
+    board.innerHTML=''; first=null; lock=false; n=0; found=0; moves.textContent='0'; msg.textContent='';
+    const pick = mix(C.personajes).slice(0,PAIRS);
+    mix([...pick,...pick]).forEach(p=>{
+      const b=document.createElement('button'); b.type='button'; b.className='mc'; b.dataset.k=p.f;
+      b.setAttribute('aria-label','Carta boca abajo');
+      b.innerHTML='<span class="mf back" aria-hidden="true">⭐</span><span class="mf front" aria-hidden="true"><span>'+p.e+'</span></span>';
+      const fr=b.querySelector('.front'); fr.style.background=p.c;
+      const im=new Image(); im.alt=''; im.onload=()=>{ fr.textContent=''; fr.appendChild(im); }; im.src=`personajes/${p.f}.png`;
+      b.onclick=()=>flip(b,p);
+      board.appendChild(b);
+    });
+  }
+  function flip(b,p){
+    if (lock || b.classList.contains('up') || b.classList.contains('ok')) return;
+    b.classList.add('up'); b.setAttribute('aria-label',p.n);
+    if (!first){ first=b; return; }
+    n++; moves.textContent=n;
+    if (first.dataset.k===b.dataset.k){
+      first.classList.add('ok'); b.classList.add('ok'); first=null;
+      if (++found===PAIRS){ msg.textContent=`¡Lo lograste en ${n} intentos! 🎉`; confetti(); }
+    } else {
+      lock=true; const a=first; first=null;
+      setTimeout(()=>{ [a,b].forEach(x=>{ x.classList.remove('up'); x.setAttribute('aria-label','Carta boca abajo'); }); lock=false; }, 900);
+    }
+  }
+  $('memReset').onclick=build; build();
 })();
 
 /* Cuenta regresiva (portada) */
