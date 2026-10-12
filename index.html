@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>¡Al infinito y más allá! | Cumpleaños de Gabriel</title>
 <meta name="description" content="Estás invitado al cumpleaños de Gabriel. ¡Ven a jugar con nosotros!">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Vista previa al compartir (WhatsApp, Facebook, etc.).
+     IMPORTANTE: cambia TU-SITIO.com por tu dirección real y sube preview.jpg a la carpeta "fotos". -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PE">
+<meta property="og:site_name" content="Cumpleaños de Gabriel">
+<meta property="og:title" content="¡Estás invitado al cumpleaños de Gabriel! 🚀">
+<meta property="og:description" content="¡Al infinito y más allá! Sábado 31 de octubre, 6:00 p. m. Abre tu invitación.">
+<meta property="og:url" content="https://badcria2.github.io/invitacion/">
+<meta property="og:image" content="https://badcria2.github.io/invitacion/fotos/preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Invitación al cumpleaños de Gabriel: ¡Al infinito y más allá!">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
@@ -221,6 +236,19 @@ input[readonly]{background:#f1e8cc}
 #vm[hidden]{display:none}
 #vm .x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 1rem);right:1rem}
 
+/* Botones pequeños, Yape y mensaje final */
+.btn.small{min-height:42px;padding:.45rem 1.1rem;font-size:.92rem;box-shadow:0 4px 0 var(--brown)}
+.btn.yape{background:#742284;color:#fff}
+.post .pre,.post .pass{display:none!important}
+#gracias{display:none}
+.post #gracias{display:block}
+.thanks{background:#fff;color:var(--brown);border:4px solid var(--brown);border-radius:28px;padding:1.6rem 1.3rem;box-shadow:0 8px 0 var(--brown)}
+.thanks .em{font-size:3.5rem;display:block;animation:wobble 1.6s ease-in-out infinite}
+.thanks h2{color:var(--red);text-shadow:none;margin:.3rem 0 .6rem}
+.oops .card{max-height:92svh;overflow-y:auto}
+.yq img{width:min(220px,60vw);margin:.8rem auto;border:4px solid #742284;border-radius:18px;background:#fff}
+.ynum{font:400 2rem var(--display);color:#742284;letter-spacing:.04em;margin:.4rem 0}
+
 /* Destellos de luz */
 .glint{position:fixed;z-index:45;pointer-events:none;line-height:1;opacity:0;
   text-shadow:0 0 6px #FFC72C,0 0 14px #fff;
@@ -271,10 +299,10 @@ input[readonly]{background:#f1e8cc}
     <p class="pass" id="pass"></p>
     <span class="age" id="age">¡5 años!</span>
     <h1 id="title">Gabriel</h1>
-    <p class="lead" style="font-size:1.3rem;font-weight:800">¡Al infinito y más allá! Ven a jugar en mi cumpleaños.</p>
+    <p class="lead pre" style="font-size:1.3rem;font-weight:800">¡Al infinito y más allá! Ven a jugar en mi cumpleaños.</p>
     <div class="photo" id="heroPhoto" role="button" tabindex="0" style="cursor:pointer" aria-label="Foto del cumpleañero. Tócala para lanzar confeti">🤠</div>
-    <p class="cdlabel">Faltan para la fiesta:</p>
-    <div class="count" role="timer" aria-live="off">
+    <p class="cdlabel pre">Faltan para la fiesta:</p>
+    <div class="count pre" role="timer" aria-live="off">
       <div><b data-u="d">00</b><small>días</small></div>
       <div><b data-u="h">00</b><small>horas</small></div>
       <div><b data-u="m">00</b><small>min</small></div>
@@ -283,17 +311,31 @@ input[readonly]{background:#f1e8cc}
   </div>
   <a class="scroll" href="#cuando" aria-label="Ir a la fecha">Desliza ↓</a>
 </header>
-<div class="marq" aria-hidden="true"><div id="marq"></div></div>
+<div class="marq pre" aria-hidden="true"><div id="marq"></div></div>
+
+<!-- ========== 2B. MENSAJE DESPUÉS DE LA FIESTA ========== -->
+<section class="sky" id="gracias">
+  <div class="wrap">
+    <div class="thanks">
+      <span class="em" aria-hidden="true">🎉</span>
+      <h2 id="gtTitle">¡Gracias por venir!</h2>
+      <p id="gtText"></p>
+    </div>
+  </div>
+</section>
 
 <!-- ========== 3. FECHA ========== -->
-<section class="cow" id="cuando">
+<section class="cow pre" id="cuando">
   <div class="wrap">
     <h2>Anota la fecha</h2>
     <div class="date">
       <b id="dDay">31</b>
       <span id="dText">Sábado<br>de octubre<br>6:00 p. m.</span>
     </div>
-    <p class="lead">Llega puntual y trae tu mejor sonrisa. ¡Será una fiesta de otro mundo!</p>
+\1    <div class="btns">
+      <a class="btn small" id="gcalBtn" target="_blank" rel="noopener" href="#">📅 Google Calendar</a>
+      <button class="btn small ghost" id="icsBtn" type="button">📅 Apple / Outlook</button>
+    </div>
   </div>
 </section>
 
@@ -312,7 +354,7 @@ input[readonly]{background:#f1e8cc}
 </section>
 
 <!-- ========== 4. UBICACIÓN ========== -->
-<section class="sky" id="donde">
+<section class="sky pre" id="donde">
   <div class="wrap">
     <h2>¿Dónde es?</h2>
     <p class="lead">Elige cómo llegar y te abrimos la ruta.</p>
@@ -354,7 +396,7 @@ input[readonly]{background:#f1e8cc}
 </section>
 
 <!-- ========== 6B. AVISOS ========== -->
-<section class="cow" id="avisos">
+<section class="cow pre" id="avisos">
   <div class="wrap">
     <h2><span class="gift" aria-hidden="true">🎁</span> Avisos de los juguetes</h2>
     <div class="bubble" id="bubble" aria-live="polite"></div>
@@ -362,10 +404,11 @@ input[readonly]{background:#f1e8cc}
 </section>
 
 <!-- ========== 7. DETALLES ========== -->
-<section class="cow" id="detalles">
+<section class="cow pre" id="detalles">
   <div class="wrap">
     <h2>Antes de venir</h2>
     <div class="notes" id="notes"></div>
+    <div class="btns"><button class="btn small yape" id="yapeBtn" type="button" aria-haspopup="dialog">💜 Regalo con Yape</button></div>
   </div>
 </section>
 </main>
@@ -384,6 +427,17 @@ input[readonly]{background:#f1e8cc}
       <button class="btn red" id="oopsOk" type="button">Intentar de nuevo</button>
       <a class="btn ghost" id="oopsWa" target="_blank" rel="noopener" href="#">Pedir ayuda</a>
     </div>
+  </div>
+</div>
+<div class="oops" id="ym" role="dialog" aria-modal="true" aria-labelledby="yT" hidden>
+  <div class="card yq">
+    <span class="em" aria-hidden="true">💜</span>
+    <h2 id="yT">Regalo con Yape</h2>
+    <p>Si prefieres, puedes enviar tu regalo por Yape.</p>
+    <img id="yQr" alt="Código QR de Yape">
+    <p class="ynum" id="yNum"></p>
+    <p id="yTit" style="font-weight:800"></p>
+    <div class="btns"><button class="btn small yape" id="yCopy" type="button">Copiar número</button><button class="btn small ghost" id="yClose" type="button">Cerrar</button></div>
   </div>
 </div>
 <button class="mus" id="mus" aria-label="Música de fondo" aria-pressed="false">🎵</button>
@@ -422,6 +476,15 @@ const CONFIG = {
 
   // Cohetes: cada cuántos segundos despega uno
   cohetesCadaSeg: 6,
+
+  // Duración de la fiesta en horas (sirve para el calendario y para saber cuándo mostrar el mensaje final)
+  duracionHoras: 4,
+
+  // Mensaje que aparece cuando termina la fiesta. Para verlo antes, agrega ?despues=1 al enlace.
+  despues: { texto: "Gabriel se divirtió muchísimo jugando con todos. Gracias por venir, por los regalos y por tanto cariño. ¡Hasta el infinito y más allá! 🚀" },
+
+  // Yape: número y/o QR (guarda tu imagen en yape/qr.png). Si ambos están vacíos, se oculta el botón.
+  yape: { titular: "", numero: "991 585 760", qr: "yape/qr.png" },
 
   // Fotos: agrega rutas, ej: ["fotos/1.jpg","fotos/2.jpg"]. Vacío = cuadros de ejemplo.
   fotos: ["fotos/foto1.jpg","fotos/foto2.jpg","fotos/foto3.jpg","fotos/foto4.jpg","fotos/foto5.jpg","fotos/foto6.jpg"],
@@ -462,35 +525,34 @@ const CONFIG = {
     { e:"👽", t:"¡Los alienitos no te reconocen!", p:"Revisa que tu nombre y apellido estén bien escritos e inténtalo de nuevo." }
   ],
 
-  // LISTA DE INVITADOS: 1 adulto + sus niños. "nombres" = formas en que pueden escribirse. 
+  // LISTA DE INVITADOS: 1 o más adultos + sus niños. "nombres" = formas en que pueden escribirse (nombre + apellido).
   invitados: [
-    { saludo:"Laura Hernandez",  nombres:["Laura"],    ninos:1 },
-    { saludo:"Arturo",         nombres:["Arturo Quisquiche"],                    ninos:0},
-    { saludo:"Soria Siccha",          nombres:["Soria Siccha"], ninos:0 },
-    { saludo:"Evelyn Diaz",          nombres:["Evelyn Diaz"], ninos:0 },
-    { saludo:"Pablo Hernandez",          nombres:["Pablo Hernandez"], ninos:0 },
-    { saludo:"Ñata",                     nombres:["Edeldy","Ñata"], ninos:1 },
-    { saludo:"Andrea",          nombres:["Andrea Hernandez"], ninos:0 },
-    { saludo:"Jenny Hernandez",          nombres:["Jenny Hernandez"], ninos:0 },
-    { saludo:"Jean Pier",          nombres:["Jean Pier"], ninos:1 },
-    { saludo:"Soriano Diaz",          nombres:["Soriano Diaz"], ninos:0 },
-    { saludo:"Jorge Diaz",          nombres:["Jorge Diaz"], ninos:0 },
-    { saludo:"Mama Llenny",          nombres:["Lleny","Mama Jenny"], ninos:0 },
-    { saludo:"Claudia Hernandez",          nombres:["Claudia Hernandez"], ninos:1 },
-    { saludo:"Nena Hernandez",          nombres:["Laura Hernandez","Nena"], ninos:2 },
-    { saludo:"Mama de Emma",          nombres:["Mama de Emma","Mamita de Emma"], ninos:1 },
-    { saludo:"Mama de Ayrton",          nombres:["Mama de Ayrton","Mamita de Ayrton"], ninos:1 },
-    { saludo:"Mama de Peython",          nombres:["Mama de Peyton","Mamita de Peyton"], ninos:1},
-    { saludo:"Mama de Catalina",          nombres:["Mama de Catalina","Mamita de Catalina"], ninos:1},
-    { saludo:"Luis & Esposa",          nombres:["Luis Hidalgo","Luis"], ninos:2},
-    { saludo:"Jose Luis & Esposa",          nombres:["Jose Luis","Jose"], ninos:2},
-    { saludo:"Lourdes Pinedo",          nombres:["Lourdes Pinedo"], ninos:1},
-    { saludo:"Wendy Hernandez",          nombres:["Wendy Hernandez","Wendy"], ninos:1},
-    { saludo:"David Zuñiga",          nombres:["David Zuñiga","David"], ninos:2},
-    { saludo:"Edwin",          nombres:["Edwin","Edwin Rico"], ninos:1},
-    { saludo:"Giovana Almeida",          nombres:["Giovana","Giovana Almeida"], ninos:1}
+    { saludo:"Laura Hernandez",   nombres:["Laura Hernandez","Laura"], ninos:1 },
+    { saludo:"Arturo",            nombres:["Arturo Quisquiche"], ninos:0 },
+    { saludo:"Soria Siccha",      nombres:["Soria Siccha"], ninos:0 },
+    { saludo:"Evelyn Diaz",       nombres:["Evelyn Diaz"], ninos:0 },
+    { saludo:"Pablo Hernandez",   nombres:["Pablo Hernandez"], ninos:0 },
+    { saludo:"Ñata",              nombres:["Edeldy","Ñata"], ninos:1 },
+    { saludo:"Andrea",            nombres:["Andrea Hernandez"], ninos:0 },
+    { saludo:"Jenny Hernandez",   nombres:["Jenny Hernandez"], ninos:0 },
+    { saludo:"Jean Pier",         nombres:["Jean Pier"], ninos:1 },
+    { saludo:"Soriano Diaz",      nombres:["Soriano Diaz"], ninos:0 },
+    { saludo:"Jorge Diaz",        nombres:["Jorge Diaz"], ninos:0 },
+    { saludo:"Mama Llenny",       nombres:["Lleny","Mama Jenny"], ninos:0 },
+    { saludo:"Claudia Hernandez", nombres:["Claudia Hernandez"], ninos:1 },
+    { saludo:"Nena Hernandez",    nombres:["Nena Hernandez","Nena"], ninos:2 },
+    { saludo:"Mama de Emma",      nombres:["Mama de Emma","Mamita de Emma"], ninos:1 },
+    { saludo:"Mama de Ayrton",    nombres:["Mama de Ayrton","Mamita de Ayrton"], ninos:1 },
+    { saludo:"Mama de Peyton",    nombres:["Mama de Peyton","Mamita de Peyton"], ninos:1 },
+    { saludo:"Mama de Catalina",  nombres:["Mama de Catalina","Mamita de Catalina"], ninos:1 },
+    { saludo:"Luis & Esposa",     nombres:["Luis Hidalgo","Luis"], adultos:2, ninos:2 },
+    { saludo:"Jose Luis & Esposa",nombres:["Jose Luis","Jose"], adultos:2, ninos:2 },
+    { saludo:"Lourdes Pinedo",    nombres:["Lourdes Pinedo"], ninos:1 },
+    { saludo:"Wendy Hernandez",   nombres:["Wendy Hernandez","Wendy"], ninos:1 },
+    { saludo:"David Zuñiga",      nombres:["David Zuñiga","David"], ninos:2 },
+    { saludo:"Edwin",             nombres:["Edwin","Edwin Rico"], ninos:1 },
+    { saludo:"Giovana Almeida",   nombres:["Giovana","Giovana Almeida"], ninos:1 }
   ],
-
 
   detalles: [
     { icono:"👕", texto:"Ven cómodo. Si quieres, ¡disfrázate de tu juguete favorito!" },
@@ -593,9 +655,37 @@ if (C.musica){
 }
 
 /* Lista de invitados */
+/* Validación por nombre: se ignoran tildes, mayúsculas y orden, y se tolera 1 letra mal escrita (palabras de 5+ letras).
+   - Con 2 o más palabras: deben estar TODAS las palabras de algún nombre de la lista; gana el más completo.
+   - Con 1 sola palabra: solo entra si es un nombre de una palabra que pertenece a un único invitado.
+   Si hay empate entre invitados, no entra nadie. */
 const norm = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean);
-const findGuest = txt => { const t=norm(txt); if (t.length<2) return -1;
-  return C.invitados.findIndex(g=>g.nombres.some(n=>{const w=norm(n); return t.every(x=>w.includes(x));})); };
+function near(a,b){
+  if (a===b) return true;
+  if (a.length<5 || b.length<5 || Math.abs(a.length-b.length)>1) return false;
+  let i=0; while (i<a.length && i<b.length && a[i]===b[i]) i++;
+  if (a.length===b.length) return a.slice(i+1)===b.slice(i+1) || (a[i]===b[i+1] && a[i+1]===b[i] && a.slice(i+2)===b.slice(i+2));
+  const [l,sh] = a.length>b.length ? [a,b] : [b,a];
+  return l.slice(i+1)===sh.slice(i);
+}
+const findGuest = txt => {
+  const t = [...new Set(norm(txt))]; if (!t.length) return -1;
+  if (t.length === 1){
+    const w = t[0], hit = new Set();
+    C.invitados.forEach((g,i)=>g.nombres.forEach(n=>{ const x=norm(n); if (x.length===1 && near(x[0],w)) hit.add(i); }));
+    if (hit.size !== 1) return -1;
+    const i = [...hit][0];
+    return C.invitados.some((g,k)=>k!==i && g.nombres.some(n=>norm(n).some(x=>near(x,w)))) ? -1 : i;
+  }
+  let best = -1, bestLen = 0, tie = false;
+  C.invitados.forEach((g,i)=>g.nombres.forEach(n=>{
+    const w = [...new Set(norm(n))];
+    if (!w.length || !w.every(x=>t.some(y=>near(x,y)))) return;
+    if (w.length > bestLen){ best = i; bestLen = w.length; tie = false; }
+    else if (w.length === bestLen && best !== i) tie = true;
+  }));
+  return tie ? -1 : best;
+};
 
 let lastErr=-1;
 function showOops(){
@@ -608,29 +698,47 @@ function closeOops(){ $('oops').hidden=true; $('guest').focus(); $('guest').sele
 $('oopsOk').onclick=closeOops;
 document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !$('oops').hidden) closeOops(); });
 
+/* Antes / después de la fiesta */
+$('gtText').textContent = (C.despues && C.despues.texto) || '';
+const forzarDespues = /[?&]despues\b/.test(location.search);
+const isPost = () => forzarDespues || Date.now() >= D.getTime() + (C.duracionHoras||4)*36e5;
+let GUEST = null;
+function refreshPost(){
+  const post = isPost();
+  document.body.classList.toggle('post', post);
+  document.querySelector('.scroll').href = post ? '#gracias' : '#cuando';
+  if (!GUEST) return;
+  $('hi').textContent = post ? `¡Gracias, ${GUEST.saludo}, por venir a la fiesta de` : `¡Hola, ${GUEST.saludo}! Estás invitado a la fiesta de`;
+  $('gtTitle').textContent = `¡Gracias, ${GUEST.saludo}!`;
+}
 function openGate(i, fresh){
-  const G = C.invitados[i];
+  GUEST = C.invitados[i];
   $('gate').classList.add('out'); document.body.style.overflow = '';
-  $('hi').textContent = `¡Hola, ${G.saludo}! Estás invitado a la fiesta de`;
-  $('pass').textContent = `🎟️ Invitación para 1 adulto${G.ninos?` + ${G.ninos} niño${G.ninos>1?'s':''}`:''}`;
+  const A = GUEST.adultos || 1;
+  $('pass').textContent = `🎟️ Invitación para ${A} adulto${A>1?'s':''}${GUEST.ninos?` + ${GUEST.ninos} niño${GUEST.ninos>1?'s':''}`:''}`;
+  refreshPost();
   if (fresh){ confetti(); au && au.play().catch(()=>{}); }
   setTimeout(()=>$('gate').remove(),600);
 }
 document.body.style.overflow = 'hidden';
+let fails=0, lockUntil=0;
 $('gateForm').addEventListener('submit', e=>{
   e.preventDefault();
+  if (Date.now() < lockUntil){ $('gerr').textContent = 'Espera unos segundos antes de intentar otra vez.'; return; }
   const i = findGuest($('guest').value);
   if (i < 0){
+    if (++fails >= 5){ lockUntil = Date.now()+30000; fails = 0; }
     $('gerr').textContent = 'Revisa tu nombre y apellido e inténtalo de nuevo.'; showOops();
     $('guest').setAttribute('aria-invalid','true');
     const c=document.querySelector('.gate-card'); c.classList.remove('bad'); void c.offsetWidth; c.classList.add('bad');
     return;
   }
-  try{ sessionStorage.setItem('gi', i); }catch(_){}
+  try{ localStorage.setItem('inv', C.invitados[i].saludo); }catch(_){}
   openGate(i, true);
 });
-let gi=null; try{ gi=sessionStorage.getItem('gi'); }catch(_){}
-if (gi!==null && C.invitados[gi]) openGate(+gi, false);
+let gi=null; try{ gi=localStorage.getItem('inv'); }catch(_){}
+const gj = gi ? C.invitados.findIndex(g=>g.saludo===gi) : -1;
+if (gj >= 0) openGate(gj, false);
 else setTimeout(()=>$('guest').focus(), 100);
 
 /* Franja y burbuja de frases */
@@ -694,10 +802,56 @@ if (!RM){
   setInterval(()=>{ launchRocket(); if(Math.random()<.35) setTimeout(launchRocket,500); }, every);
 }
 
+/* Agregar al calendario */
+(function(){
+  const st = D.getTime(), en = st + (C.duracionHoras||4)*36e5;
+  const f = t => new Date(t).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const titulo = `Cumpleaños de ${C.nombre}`, lugar = `${L.nombre}, ${L.direccion}`;
+  const det = `¡Al infinito y más allá! Fiesta de cumpleaños de ${C.nombre}.`;
+  $('gcalBtn').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${f(st)}/${f(en)}&details=${encodeURIComponent(det)}&location=${encodeURIComponent(lugar)}`;
+  const esc = t => t.replace(/[\\;,]/g,'\\$&').replace(/\n/g,'\\n');
+  $('icsBtn').onclick = () => {
+    const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Invitacion//ES','CALSCALE:GREGORIAN','BEGIN:VEVENT',
+      `UID:cumple-${st}@invitacion`,`DTSTAMP:${f(Date.now())}`,`DTSTART:${f(st)}`,`DTEND:${f(en)}`,
+      `SUMMARY:${esc(titulo)}`,`LOCATION:${esc(lugar)}`,`DESCRIPTION:${esc(det)}`,
+      'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Mañana es la fiesta','END:VALARM',
+      'BEGIN:VALARM','TRIGGER:-PT2H','ACTION:DISPLAY','DESCRIPTION:La fiesta empieza en 2 horas','END:VALARM',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));
+    a.download = 'cumpleanos.ics'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+  };
+})();
+
+/* Yape (popup) */
+(function(){
+  const y = C.yape, m = $('ym');
+  if (!y || !(y.numero || y.qr)){ $('yapeBtn').remove(); m.remove(); return; }
+  if (y.titular) $('yTit').textContent = y.titular; else $('yTit').remove();
+  if (y.numero) $('yNum').textContent = y.numero; else { $('yNum').remove(); $('yCopy').remove(); }
+  const im = $('yQr');
+  if (y.qr){ im.onerror = () => im.remove(); im.src = y.qr; } else im.remove();
+  const close = () => { m.hidden = true; $('yapeBtn').focus(); };
+  $('yapeBtn').onclick = () => { m.hidden = false; $('yClose').focus(); };
+  $('yClose').onclick = close;
+  m.addEventListener('click', e => { if (e.target === m) close(); });
+  document.addEventListener('keydown', e => { if (e.key==='Escape' && !m.hidden) close(); });
+  const cp = $('yCopy');
+  if (cp) cp.onclick = async () => {
+    let ok = true;
+    try{ await navigator.clipboard.writeText(y.numero.replace(/\s/g,'')); }
+    catch(_){ ok = false; const r=document.createRange(); r.selectNodeContents($('yNum')); const g=getSelection(); g.removeAllRanges(); g.addRange(r); }
+    cp.textContent = ok ? '¡Copiado! ✓' : 'Número seleccionado';
+    setTimeout(()=>cp.textContent='Copiar número', 2000);
+  };
+})();
+
 /* Cuenta regresiva (portada) */
 const target = new Date(C.fechaISO).getTime();
 const pad = n => String(n).padStart(2,'0');
 function tick(){
+  if (isPost() !== document.body.classList.contains('post')) refreshPost();
   const d = Math.max(0, target - Date.now());
   const v = {d:Math.floor(d/864e5), h:Math.floor(d%864e5/36e5), m:Math.floor(d%36e5/6e4), s:Math.floor(d%6e4/1e3)};
   document.querySelectorAll('[data-u]').forEach(el=>el.textContent = pad(v[el.dataset.u]));
