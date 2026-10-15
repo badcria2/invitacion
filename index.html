@@ -6,6 +6,10 @@
 <title>¡Al infinito y más allá! | Cumpleaños de Gabriel</title>
 <meta name="description" content="Estás invitado al cumpleaños de Gabriel. ¡Ven a jugar con nosotros!">
 <meta name="robots" content="noindex, nofollow">
+<!-- GitHub Pages no permite configurar headers; estas directivas reducen la caché del documento. -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <!-- Vista previa al compartir (WhatsApp, Facebook, etc.).
      IMPORTANTE: cambia TU-SITIO.com por tu dirección real y sube preview.jpg a la carpeta "fotos". -->
@@ -474,6 +478,15 @@ input[readonly]{background:#f1e8cc}
 </div>
 
 <script>
+// Incrementa esta versión cada vez que publiques cambios en esta invitación.
+const APP_VERSION = "2026-10-15-2";
+const versionUrl = new URL(window.location.href);
+if (versionUrl.searchParams.get("v") !== APP_VERSION) {
+  versionUrl.searchParams.set("v", APP_VERSION);
+  window.location.replace(versionUrl.href);
+}
+const asset = path => path ? `${path}${path.includes("?") ? "&" : "?"}v=${encodeURIComponent(APP_VERSION)}` : path;
+
 /* =====================================================
    ✏️  EDITA SOLO ESTA SECCIÓN
    ===================================================== */
@@ -607,7 +620,7 @@ $('dText').innerHTML = `${cap(D.toLocaleDateString('es-PE',{...tz,weekday:'long'
 $('foot').textContent = C.firma;
 $('pName').textContent = L.nombre;
 $('pAddr').textContent = L.direccion;
-if (C.fotoPortada) $('heroPhoto').innerHTML = `<img src="${C.fotoPortada}" alt="${C.nombre}">`;
+if (C.fotoPortada) $('heroPhoto').innerHTML = `<img src="${asset(C.fotoPortada)}" alt="${C.nombre}">`;
 
 /* Ubicación */
 const q = encodeURIComponent(`${L.nombre} ${L.direccion}`);
@@ -618,7 +631,7 @@ $('mapFrame').src = `https://maps.google.com/maps?q=${q}&z=15&output=embed`;
 /* Video */
 function buildVideo(b, v){
   if (v.mp4){
-    b.innerHTML = `<video controls playsinline preload="metadata" src="${v.mp4}"></video>`;
+    b.innerHTML = `<video controls playsinline preload="metadata" src="${asset(v.mp4)}"></video>`;
     const vid=b.firstChild;
     vid.addEventListener('loadedmetadata',()=>{ if(vid.videoWidth) b.style.setProperty('--r',(vid.videoWidth/vid.videoHeight).toFixed(4)); });
   }
@@ -646,13 +659,13 @@ if (C.videoLlegada && (C.videoLlegada.mp4 || C.videoLlegada.youtube)){
   items.forEach((it,i)=>{
     const b = document.createElement('button');
     b.type='button'; b.setAttribute('aria-label',`Ver foto ${i+1}`);
-    if (C.fotos.length){ b.innerHTML=`<img src="${it}" alt="Foto ${i+1} de ${C.nombre}" loading="lazy">`; b.onclick=()=>openLb(it); }
+    if (C.fotos.length){ b.innerHTML=`<img src="${asset(it)}" alt="Foto ${i+1} de ${C.nombre}" loading="lazy">`; b.onclick=()=>openLb(it); }
     else b.textContent = it;
     g.appendChild(b);
   });
 })();
 const lb = $('lb');
-function openLb(src){ lb.querySelector('img').src = src; lb.classList.add('on'); $('lbClose').focus(); }
+function openLb(src){ lb.querySelector('img').src = asset(src); lb.classList.add('on'); $('lbClose').focus(); }
 $('lbClose').onclick = () => lb.classList.remove('on');
 lb.onclick = e => { if (e.target === lb) lb.classList.remove('on'); };
 document.addEventListener('keydown', e => { if (e.key==='Escape') lb.classList.remove('on'); });
@@ -675,7 +688,7 @@ function confetti(){
 /* Música */
 const mus=$('mus'); let au=null;
 if (C.musica){
-  au=new Audio(C.musica); au.loop=true; au.volume=.5; mus.style.display='block';
+  au=new Audio(asset(C.musica)); au.loop=true; au.volume=.5; mus.style.display='block';
   mus.onclick=()=>au.paused?au.play():au.pause();
   au.addEventListener('play',()=>{mus.classList.add('on');mus.setAttribute('aria-pressed','true')});
   au.addEventListener('pause',()=>{mus.classList.remove('on');mus.setAttribute('aria-pressed','false')});
@@ -859,7 +872,7 @@ if (!RM){
   if (y.titular) $('yTit').textContent = y.titular; else $('yTit').remove();
   if (y.numero) $('yNum').textContent = y.numero; else { $('yNum').remove(); $('yCopy').remove(); }
   const im = $('yQr');
-  if (y.qr){ im.onerror = () => im.remove(); im.src = y.qr; } else im.remove();
+  if (y.qr){ im.onerror = () => im.remove(); im.src = asset(y.qr); } else im.remove();
   const close = () => { m.hidden = true; $('yapeBtn').focus(); };
   $('yapeBtn').onclick = () => { m.hidden = false; $('yClose').focus(); };
   $('yClose').onclick = close;
@@ -888,7 +901,7 @@ if (!RM){
       b.setAttribute('aria-label','Carta boca abajo');
       b.innerHTML='<span class="mf back" aria-hidden="true">⭐</span><span class="mf front" aria-hidden="true"><span>'+p.e+'</span></span>';
       const fr=b.querySelector('.front'); fr.style.background=p.c;
-      const im=new Image(); im.alt=''; im.onload=()=>{ fr.textContent=''; fr.appendChild(im); }; im.src=`personajes/${p.f}.png`;
+      const im=new Image(); im.alt=''; im.onload=()=>{ fr.textContent=''; fr.appendChild(im); }; im.src=asset(`personajes/${p.f}.png`);
       b.onclick=()=>flip(b,p);
       board.appendChild(b);
     });
@@ -928,7 +941,7 @@ tick(); setInterval(tick, 1000);
   C.personajes.forEach((p,i)=>{
     const s=document.createElement('div'); s.className='slide'; s.style.background=p.c; s.style.color=p.t;
     s.innerHTML=`<div class="pic"><span aria-hidden="true">${p.e}</span></div><h3>${p.n}</h3>`;
-    const im=new Image(); im.alt=p.n; im.onload=()=>{const pic=s.firstChild; pic.textContent=''; pic.appendChild(im);}; im.src=p.img||`personajes/${p.f}.png`;
+    const im=new Image(); im.alt=p.n; im.onload=()=>{const pic=s.firstChild; pic.textContent=''; pic.appendChild(im);}; im.src=asset(p.img||`personajes/${p.f}.png`);
     tr.appendChild(s);
     const d=document.createElement('button'); d.type='button'; d.setAttribute('aria-label',`Ir a ${p.n}`);
     d.onclick=()=>go(i); dots.appendChild(d);
